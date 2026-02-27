@@ -25,6 +25,13 @@ main {
   flex: 1;
 }
 
+h1, h2, p {
+  margin: 0;
+}
+
+h1 { margin-bottom: .5rem; }
+h2 { margin-bottom: .75rem; }
+p  { margin-bottom: .75rem; }
 
 
 h1 {
