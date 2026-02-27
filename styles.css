@@ -1,7 +1,106 @@
-body {
-    background-color: blanchedalmond;
+@import @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,600;1,9..40,600&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+html, body {
+  height: 100%;
+  margin: .5rem;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  color: #3c1919;
+}
+
+main {
+  flex: 1;
+}
+
+body {
+    background-color: rgb(235, 232, 226);
+}
+
+
 h1 {
-    font-family: Geneva, sans-serif;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 400;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+h2 {
+  color: #2f0c5a;
+}
+
+.fade-in-title {
+  opacity: 0;
+  animation: fadeOnly 1.2s ease forwards;
+}
+
+.fade-in-delayed {
+  opacity: 0;
+  animation: fadeOnly 1s ease forwards;
+  animation-delay: 1.2s;
+}
+
+@keyframes fadeOnly {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Body text */
+.slide-in-body {
+  opacity: 0;
+  transform: translate(8px, 3px);
+  animation: slideDiagonal 0.9s ease-out forwards;
+  animation-delay: 0.5s; /* starts after title */
+  flex: 1;
+}
+
+@keyframes slideDiagonal {
+  to {
+    opacity: 1;
+    transform: translate(0,0);
+  }
+}
+
+.social-links {
+  display: flex;
+  gap: 16px;
+}
+
+.social-links a {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-links a svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* LinkedIn blue */
+.social-links a[href*="linkedin"] svg {
+  fill: #0A66C2;
+}
+
+/* GitHub black */
+.social-links a[href*="github"] svg {
+  fill: #181717;
+}
+
+/* Email icon (neutral dark) */
+.social-links a[href*="contact"] svg {
+  fill: #444;
+}
+
+footer {
+  opacity: 0;
+  transform: translate(-15px, 15px);
+  animation: slideDiagonal 0.8s cubic-bezier(.22,1,.36,1) forwards;
+  animation-delay: 0.7s; /* after body */
+  padding: .5rem;
 }
