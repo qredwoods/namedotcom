@@ -2,23 +2,22 @@
 
 html, body {
   height: 100%;
-  margin: .5rem;
+  margin: 0;
 }
 
 body {
+  min-height: 100vh;
   display: flex;
+  padding: .5rem;
   flex-direction: column;
   color: #3c1919;
+  background-color: rgb(235, 232, 226);
 }
+
 
 main {
   flex: 1;
 }
-
-body {
-    background-color: rgb(235, 232, 226);
-}
-
 
 h1 {
     font-family: "DM Sans", sans-serif;
@@ -54,7 +53,6 @@ h2 {
   transform: translate(8px, 3px);
   animation: slideDiagonal 0.9s ease-out forwards;
   animation-delay: 0.5s; /* starts after title */
-  flex: 1;
 }
 
 @keyframes slideDiagonal {
