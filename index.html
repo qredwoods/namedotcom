@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quinn Redwoods</title>
 </head>
+
+
+
 <body>
     <h1 class="fade-in-title">Quinn Redwoods</h1>
 <main class="slide-in-body">
@@ -32,7 +35,11 @@
     </svg>
   </a>
     <!-- Email / Contact -->
-<a class="icon-btn" href="/contact.html" aria-label="Contact" title="Contact">
+<a class="icon-btn"
+  id = "emailLink"
+  href="#" 
+  aria-label="Email" 
+  title="Email">
   <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
     <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
   </svg>
@@ -43,5 +50,14 @@
 <footer class = "fade-in-delayed"> 
   © 2026 Quinn Redwoods. All rights reserved.
 </footer>
+<script>
+  const user = "greetings";
+  const domain = "qredwoods.com";
+  const sym = "@"
+  const cont_info = user + sym + domain;
+  const link = document.getElementById("emailLink");
+  link.href = "mailto:" + cont_info;
+</script>
+
 </body>
 </html>
