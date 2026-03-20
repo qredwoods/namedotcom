@@ -143,8 +143,7 @@
     const socialMotion = {
       startBuffer: 24,
       endBuffer: 24,
-      enterLead: 0.4,
-      exitLag: .8,
+      triggerLine: 0.62,
       easing: 0.08,
     };
     let currentOffset = 0;
@@ -201,9 +200,8 @@
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
       const startOffset = -(baseTop + textHeight + socialMotion.startBuffer);
       const endOffset = (rect.height - baseTop) + socialMotion.endBuffer;
-      const start = viewportHeight + (rect.height * socialMotion.enterLead);
-      const end = -(rect.height * socialMotion.exitLag);
-      const rawProgress = (start - rect.top) / (start - end);
+      const triggerLine = viewportHeight * socialMotion.triggerLine;
+      const rawProgress = (triggerLine - rect.top) / rect.height;
       const progress = Math.min(Math.max(rawProgress, 0), 1);
       const easedProgress = 0.5 - (Math.cos(progress * Math.PI) / 2);
       targetOffset = startOffset + ((endOffset - startOffset) * easedProgress);
