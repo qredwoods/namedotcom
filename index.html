@@ -141,10 +141,10 @@
     const socialBg = document.getElementById("socialBg");
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const socialMotion = {
-      startTextHeight: 2.6,
-      endTextHeight: 0.85,
-      minStartOffset: 240,
-      minEndOffset: 120,
+      startTextHeight: 2.2,
+      endTextHeight: 0.65,
+      startViewportHeight: 0.42,
+      endViewportHeight: 0.1,
       enterLead: 0.4,
       exitLag: .8,
       easing: 0.08,
@@ -197,10 +197,15 @@
 
       const rect = socialBand.getBoundingClientRect();
       const textHeight = socialBg.offsetHeight;
-      const bandHeight = socialBand.offsetHeight;
-      const startOffset = -Math.max(textHeight * socialMotion.startTextHeight, bandHeight + socialMotion.minStartOffset);
-      const endOffset = Math.max(textHeight * socialMotion.endTextHeight, socialMotion.minEndOffset);
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      const startOffset = -Math.max(
+        textHeight * socialMotion.startTextHeight,
+        viewportHeight * socialMotion.startViewportHeight
+      );
+      const endOffset = Math.max(
+        textHeight * socialMotion.endTextHeight,
+        viewportHeight * socialMotion.endViewportHeight
+      );
       const start = viewportHeight + (rect.height * socialMotion.enterLead);
       const end = -(rect.height * socialMotion.exitLag);
       const rawProgress = (start - rect.top) / (start - end);
