@@ -70,12 +70,37 @@
       </div>
 
       <section>
-        <h2 class="section-title">Projects</h2>
+        <h2 class="section-title">Featured Project</h2>
 
         <article class="project">
-          <h3 class="project-title">SparkMvmt</h3>
-          <p class="project-summary">Full-stack exercise tracker with rotating JWT auth and a responsive UI.</p>
-          <p class="stack">React, Node, Express, MongoDB</p>
+          <h3 class="project-title">
+            <a
+              href="https://sparkmvmt.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              SparkMvmt
+            </a>
+          </h3>
+          <p class="project-summary">Full-stack exercise tracker with rotating JWT auth, demo mode, and a responsive single-page UI.</p>
+          <p class="project-links">
+            <a
+              href="https://sparkmvmt.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Live site
+            </a>
+            <span aria-hidden="true"> / </span>
+            <a
+              href="https://github.com/qredwoods/exercisetracker"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Repo
+            </a>
+          </p>
+          <p class="stack">React, Node.js, Express, MongoDB, JWT, EC2</p>
 
           <div class="project-gallery">
             <figure class="shot">
@@ -106,11 +131,11 @@
     const socialBg = document.getElementById("socialBg");
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const socialMotion = {
-      startOffset: -750,
-      endOffset: 70,
-      enterLead: 0.3,
-      exitLag: 1,
-      easing: 0.06,
+      startOffset: -660,
+      endOffset: 180,
+      enterLead: 0.4,
+      exitLag: .4,
+      easing: 0.08,
     };
     let currentOffset = socialMotion.startOffset;
     let targetOffset = socialMotion.startOffset;
@@ -129,7 +154,7 @@
         currentOffset = targetOffset;
       }
 
-      socialBg.style.transform = `translateX(-50%) translateY(${currentOffset.toFixed(2)}px)`;
+      socialBg.style.setProperty("--social-offset", `${currentOffset.toFixed(2)}px`);
 
       if (Math.abs(targetOffset - currentOffset) >= 0.1) {
         ticking = true;
@@ -154,7 +179,7 @@
       if (reducedMotionQuery.matches) {
         targetOffset = 0;
         currentOffset = 0;
-        socialBg.style.transform = "translateX(-50%) translateY(0)";
+        socialBg.style.setProperty("--social-offset", "0px");
         return;
       }
 
