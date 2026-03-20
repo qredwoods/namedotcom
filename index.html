@@ -104,26 +104,24 @@
 
           <div class="project-gallery">
             <figure class="shot">
-              <button
-                class="shot-button"
-                type="button"
-                data-shot-src="/images/loginattempt.png"
-                data-shot-alt="SparkMvmt login screen"
-                aria-label="Enlarge SparkMvmt login screen"
+              <a
+                href="/images/loginattempt.png"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open SparkMvmt login screen in a new tab"
               >
                 <img src="/images/loginattempt.png" alt="SparkMvmt login screen">
-              </button>
+              </a>
             </figure>
             <figure class="shot">
-              <button
-                class="shot-button"
-                type="button"
-                data-shot-src="/images/exercisetable2.png"
-                data-shot-alt="SparkMvmt exercise table view"
-                aria-label="Enlarge SparkMvmt exercise table view"
+              <a
+                href="/images/exercisetable2.png"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open SparkMvmt exercise table view in a new tab"
               >
                 <img src="/images/exercisetable2.png" alt="SparkMvmt exercise table view">
-              </button>
+              </a>
             </figure>
           </div>
         </article>
@@ -133,13 +131,6 @@
     <footer class="fade-in-delayed">
       <p>© 2026 Quinn Redwoods. All rights reserved.</p>
     </footer>
-  </div>
-
-  <div class="lightbox" id="lightbox" hidden>
-    <button class="lightbox-backdrop" type="button" id="lightboxClose" aria-label="Close enlarged image"></button>
-    <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-label="Expanded project screenshot">
-      <img class="lightbox-image" id="lightboxImage" alt="">
-    </div>
   </div>
 
   <script>
@@ -152,10 +143,6 @@
 
     const socialBand = document.getElementById("socialBand");
     const socialBg = document.getElementById("socialBg");
-    const shotButtons = document.querySelectorAll(".shot-button");
-    const lightbox = document.getElementById("lightbox");
-    const lightboxClose = document.getElementById("lightboxClose");
-    const lightboxImage = document.getElementById("lightboxImage");
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const socialMotion = {
       startOffset: -760,
@@ -230,43 +217,6 @@
     } else if (typeof reducedMotionQuery.addListener === "function") {
       reducedMotionQuery.addListener(updateSocialBgPosition);
     }
-
-    function openLightbox(src, alt) {
-      if (!lightbox || !lightboxImage) {
-        return;
-      }
-
-      lightboxImage.src = src;
-      lightboxImage.alt = alt;
-      lightbox.hidden = false;
-      document.body.classList.add("lightbox-open");
-      lightboxClose?.focus();
-    }
-
-    function closeLightbox() {
-      if (!lightbox || !lightboxImage) {
-        return;
-      }
-
-      lightbox.hidden = true;
-      lightboxImage.src = "";
-      lightboxImage.alt = "";
-      document.body.classList.remove("lightbox-open");
-    }
-
-    shotButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        openLightbox(button.dataset.shotSrc, button.dataset.shotAlt);
-      });
-    });
-
-    lightboxClose?.addEventListener("click", closeLightbox);
-
-    window.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && lightbox && !lightbox.hidden) {
-        closeLightbox();
-      }
-    });
 
     updateSocialBgPosition();
   </script>
