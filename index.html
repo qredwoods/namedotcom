@@ -137,13 +137,15 @@
     const link = document.getElementById("emailLink");
     link.href = "mailto:" + cont_info;
 
+    const intro = document.querySelector(".intro");
     const socialBand = document.getElementById("socialBand");
     const socialBg = document.getElementById("socialBg");
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const socialMotion = {
-      startBuffer: 24,
-      endBuffer: 24,
-      triggerLine: 0.62,
+      startIntroHeight: 1.4,
+      endIntroHeight: 0.2,
+      enterLead: 0.4,
+      exitLag: .8,
       easing: 0.08,
     };
     let currentOffset = 0;
@@ -193,15 +195,13 @@
       }
 
       const rect = socialBand.getBoundingClientRect();
-      const computedSocialBg = window.getComputedStyle(socialBg);
-      const baseOffset = parseFloat(computedSocialBg.getPropertyValue("--social-base-offset")) || 0;
-      const textHeight = socialBg.offsetHeight;
-      const baseTop = socialBg.offsetTop + baseOffset;
+      const introHeight = intro ? intro.offsetHeight : 0;
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-      const startOffset = -(baseTop + textHeight + socialMotion.startBuffer);
-      const endOffset = (rect.height - baseTop) + socialMotion.endBuffer;
-      const triggerLine = viewportHeight * socialMotion.triggerLine;
-      const rawProgress = (triggerLine - rect.top) / rect.height;
+      const startOffset = -(introHeight * socialMotion.startIntroHeight);
+      const endOffset = introHeight * socialMotion.endIntroHeight;
+      const start = viewportHeight + (rect.height * socialMotion.enterLead);
+      const end = -(rect.height * socialMotion.exitLag);
+      const rawProgress = (start - rect.top) / (start - end);
       const progress = Math.min(Math.max(rawProgress, 0), 1);
       const easedProgress = 0.5 - (Math.cos(progress * Math.PI) / 2);
       targetOffset = startOffset + ((endOffset - startOffset) * easedProgress);
