@@ -141,16 +141,14 @@
     const socialBg = document.getElementById("socialBg");
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const socialMotion = {
-      startTextHeight: 2.6,
-      endTextHeight: 0.85,
-      minStartOffset: 240,
-      minEndOffset: 120,
+      startOffset: -760,
+      endOffset: 240,
       enterLead: 0.4,
       exitLag: .8,
       easing: 0.08,
     };
-    let currentOffset = 0;
-    let targetOffset = 0;
+    let currentOffset = socialMotion.startOffset;
+    let targetOffset = socialMotion.startOffset;
     let ticking = false;
 
     function renderSocialBgPosition() {
@@ -196,17 +194,13 @@
       }
 
       const rect = socialBand.getBoundingClientRect();
-      const textHeight = socialBg.offsetHeight;
-      const bandHeight = socialBand.offsetHeight;
-      const startOffset = -Math.max(textHeight * socialMotion.startTextHeight, bandHeight + socialMotion.minStartOffset);
-      const endOffset = Math.max(textHeight * socialMotion.endTextHeight, socialMotion.minEndOffset);
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
       const start = viewportHeight + (rect.height * socialMotion.enterLead);
       const end = -(rect.height * socialMotion.exitLag);
       const rawProgress = (start - rect.top) / (start - end);
       const progress = Math.min(Math.max(rawProgress, 0), 1);
       const easedProgress = 0.5 - (Math.cos(progress * Math.PI) / 2);
-      targetOffset = startOffset + ((endOffset - startOffset) * easedProgress);
+      targetOffset = socialMotion.startOffset + ((socialMotion.endOffset - socialMotion.startOffset) * easedProgress);
 
       queueSocialBgRender();
     }
