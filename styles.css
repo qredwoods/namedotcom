@@ -238,9 +238,10 @@ a:hover {
 }
 
 .project-links {
+  display: flex;
   margin-bottom: var(--space-2);
-  font-size: 1.05rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 500;
   justify-content: center;
 }
 
