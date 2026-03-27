@@ -137,7 +137,7 @@
       let textH = socialBg.scrollHeight;
       if (textH > bandH) {
         const currentSize = parseFloat(getComputedStyle(socialBg).fontSize);
-        socialBg.style.fontSize = (currentSize * bandH / textH * 1.15) + 'px';
+        socialBg.style.fontSize = (currentSize * bandH / textH * 1.2) + 'px';
         textH = socialBg.scrollHeight;
       }
       // Center position: text centered vertically in band
@@ -161,7 +161,9 @@
         return;
       }
 
-      currentOffset += (targetOffset - currentOffset) * socialMotion.easing;
+      const diff = targetOffset - currentOffset;
+      const step = diff * socialMotion.easing;
+      currentOffset += Math.sign(step) * Math.min(Math.abs(step), 2);
 
       if (Math.abs(targetOffset - currentOffset) < 0.1) {
         currentOffset = targetOffset;
