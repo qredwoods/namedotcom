@@ -284,18 +284,17 @@ a:hover {
   display: block;
   margin: 0;
   overflow: hidden;
-  border-radius: var(--radius);
+  border-radius: 16px;
   background: var(--image-bg);
   border: 1px solid var(--line);
 }
 
 .shot-desktop {
-  flex: 3;
+  flex: 5;
 }
 
 .shot-mobile {
-  flex: 1;
-  max-height: 420px;
+  flex: 2;
 }
 
 .shot-mobile img {
@@ -379,7 +378,6 @@ footer p {
   }
 
   .project-gallery {
-    flex-direction: column;
     gap: var(--space-2);
   }
 
