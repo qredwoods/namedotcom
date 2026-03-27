@@ -123,12 +123,33 @@
     const socialBg = document.getElementById("socialBg");
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const socialMotion = {
-      startOffset: -760,
-      endOffset: 240,
-      enterLead: 0.4,
-      exitLag: .8,
-      easing: 0.08,
+      startOffset: 0,
+      endOffset: 0,
+      restOffset: 0,
+      easing: 0.07,
     };
+
+    function computeMotionRange() {
+      if (!socialBg || !socialBand) return;
+      // Scale font so text fits within band
+      socialBg.style.fontSize = '';
+      const bandH = socialBand.offsetHeight;
+      let textH = socialBg.scrollHeight;
+      if (textH > bandH) {
+        const currentSize = parseFloat(getComputedStyle(socialBg).fontSize);
+        socialBg.style.fontSize = (currentSize * bandH / textH * 1.15) + 'px';
+        textH = socialBg.scrollHeight;
+      }
+      // Center position: text centered vertically in band
+      const center = (bandH - textH) / 2;
+      // Travel enough to fully hide text above and below
+      const travel = bandH + textH;
+      socialMotion.startOffset = center - travel;  // hidden above
+      socialMotion.endOffset = center + travel;     // hidden below
+      socialMotion.restOffset = center;
+    }
+
+    computeMotionRange();
     let currentOffset = socialMotion.startOffset;
     let targetOffset = socialMotion.startOffset;
     let ticking = false;
@@ -169,26 +190,40 @@
       }
 
       if (reducedMotionQuery.matches) {
-        targetOffset = 0;
-        currentOffset = 0;
-        socialBg.style.setProperty("--social-offset", "0px");
+        const rest = socialMotion.restOffset;
+        targetOffset = rest;
+        currentOffset = rest;
+        socialBg.style.setProperty("--social-offset", `${rest}px`);
         return;
       }
 
-      const rect = socialBand.getBoundingClientRect();
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-      const start = viewportHeight + (rect.height * socialMotion.enterLead);
-      const end = -(rect.height * socialMotion.exitLag);
-      const rawProgress = (start - rect.top) / (start - end);
+      const maxScroll = document.documentElement.scrollHeight - viewportHeight;
+
+      if (maxScroll < 10) {
+        // No meaningful scroll — show text centered
+        targetOffset = socialMotion.restOffset;
+        currentOffset = socialMotion.restOffset;
+        socialBg.style.setProperty("--social-offset", `${socialMotion.restOffset}px`);
+        return;
+      }
+
+      // Scroll-based progress: full page scroll maps to full animation
+      const rawProgress = window.scrollY / maxScroll;
       const progress = Math.min(Math.max(rawProgress, 0), 1);
       const easedProgress = 0.5 - (Math.cos(progress * Math.PI) / 2);
-      targetOffset = socialMotion.startOffset + ((socialMotion.endOffset - socialMotion.startOffset) * easedProgress);
+      // Always start fully hidden; exit as far as scroll allows
+      const fullHalf = (socialMotion.endOffset - socialMotion.startOffset) / 2;
+      const center = socialMotion.restOffset;
+      const startPos = center - fullHalf;
+      const endPos = center + Math.min(fullHalf, maxScroll);
+      targetOffset = startPos + (endPos - startPos) * easedProgress;
 
       queueSocialBgRender();
     }
 
     window.addEventListener("scroll", updateSocialBgPosition, { passive: true });
-    window.addEventListener("resize", updateSocialBgPosition);
+    window.addEventListener("resize", computeMotionRange);
 
     if (typeof reducedMotionQuery.addEventListener === "function") {
       reducedMotionQuery.addEventListener("change", updateSocialBgPosition);
@@ -196,7 +231,12 @@
       reducedMotionQuery.addListener(updateSocialBgPosition);
     }
 
+    // Snap to correct position on load (no easing)
     updateSocialBgPosition();
+    currentOffset = targetOffset;
+    if (socialBg) {
+      socialBg.style.setProperty("--social-offset", `${currentOffset.toFixed(2)}px`);
+    }
 
   </script>
   <!-- Cloudflare Web Analytics -->

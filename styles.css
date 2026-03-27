@@ -133,12 +133,11 @@ a:hover {
 .social-bg {
   position: absolute;
   left: 50%;
-  top: 42%;
+  top: 0;
   z-index: 0;
   width: min(22ch, calc(100% - 1rem));
-  --social-base-offset: -95px;
   --social-offset: 0px;
-  transform: translateX(-50%) translateY(calc(var(--social-base-offset) + var(--social-offset)));
+  transform: translateX(-50%) translateY(var(--social-offset));
   text-align: center;
   font-family: "Inter", sans-serif;
   font-size: clamp(2.1rem, 8.2vw, 3.9rem);
@@ -327,10 +326,8 @@ footer p {
 
   .social-bg {
     width: min(16ch, calc(100% - 1.25rem));
-    --social-base-offset: -85px;
     font-size: clamp(1.85rem, 9.5vw, 3.6rem);
     line-height: 0.9;
-    top: 42%;
   }
 
   .intro,
