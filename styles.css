@@ -8,8 +8,6 @@
   --line: rgba(60, 25, 25, 0.08);
   --image-bg: #e8e4dd;
 
-  --radius: min(8%, 24px);
-
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -18,8 +16,6 @@
   --space-6: 2.5rem;
   --space-7: 4rem;
 
-  --page-width: 72rem;
-  --gallery-width: 56rem;
 }
 
 *,
@@ -50,10 +46,6 @@ margin: 0 auto;
 padding: var(--space-6) 1.25rem var(--space-7);
 }
 
-
-main {
-  display: block;
-}
 
 h1,
 h2,
@@ -95,19 +87,6 @@ h3 {
 p {
   margin: 0 0 var(--space-3);
   max-width: 62ch;
-}
-
-.question {
- max-width: 18ch;
-  margin: 2.5rem 0 0;
-  font-family: "Inter", sans-serif;
-  font-size: clamp(2rem, 5.5vw, 3.25rem);
-  line-height: 1.02;
-  letter-spacing: -0.03em;
-  font-style: italic;
-  font-weight: 500;
-  color: var(--accent);
-  opacity: .2;
 }
 
 a {
@@ -220,15 +199,12 @@ a:hover {
   margin-bottom: var(--space-2);
 }
 
-.project-title a,
-.project-links a {
+.project-title a {
   color: inherit;
 }
 
 .project-title a:hover,
-.project-title a:focus-visible,
-.project-links a:hover,
-.project-links a:focus-visible {
+.project-title a:focus-visible {
   color: var(--accent);
 }
 
@@ -247,21 +223,6 @@ a:hover {
 
 .project-summary {
   margin-bottom: var(--space-2);
-}
-
-.project-links {
-  display: flex;
-  gap: 1.25rem;
-  margin-bottom: var(--space-2);
-  font-size: 1rem;
-  font-weight: 500;
-  justify-content: center;
-}
-
-.project-links a {
-  text-decoration: underline;
-  text-underline-offset: 0.14em;
-  text-decoration-thickness: 0.08em;
 }
 
 .stack {
